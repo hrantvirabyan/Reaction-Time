@@ -28,7 +28,7 @@ function updatePhase() {
         // Random delay, then show green
         var delay = Math.random() * (6000 - 2000) + 2000;
         timeoutId = setTimeout(function() {
-            reactionScreen.style.backgroundColor = '#00ff00'; // Green background
+            reactionScreen.style.backgroundColor = '#74E291'; // Green background
             loader.style.display = 'none'; // Hide loader
             // Start timing
             phase = 2; // Move to next phase
