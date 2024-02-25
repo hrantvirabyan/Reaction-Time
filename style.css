@@ -5,6 +5,7 @@
   padding-right: 1rem;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
 *,
@@ -24,6 +25,7 @@ html {
 }
 
 body {
+  
   font-family: "Roboto", sans-serif;
 }
 
@@ -41,7 +43,7 @@ body {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  color: #fff;
+  color: #f0f0f0;
   background-color: #2fa0f6;
   min-width: 120px;
   padding: 0.5rem 1rem;
@@ -54,7 +56,7 @@ body {
   vertical-align: middle;
   width: 24px;
   height: 24px;
-  fill: #fff;
+  fill: #f0f0f0;
 }
 
 .button span {
