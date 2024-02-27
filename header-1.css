@@ -1,5 +1,6 @@
 
 .brand {
+  user-select: none;
   font-weight: bold;
   list-style-type: none;
   font-size: 20px; }
@@ -27,6 +28,7 @@
 
 @media (max-width: 599px) {
   .nav__wrapper {
+    user-select: none;
     position: absolute;
     top: 100%;
     right: 0;
@@ -43,11 +45,18 @@
       opacity: 1;
       transform: translateY(0); } }
 
-.nav__item a {
-  list-style-type: none;
-  display: block;
-  padding: 1.5rem 1rem; 
-list-style-type: none;}
+      .nav__item a {
+        user-select: none;
+        display: block;
+        padding: 1.5rem 1rem;
+        list-style-type: none;
+        /* Add transition for smooth color change */
+        transition: color 0.3s ease-in-out;
+      }
+      
+      .nav__item a:hover {
+        color: #57b846; /* Change the color to blue on hover */
+      }
 
 .nav__toggle {
   list-style-type: none;
