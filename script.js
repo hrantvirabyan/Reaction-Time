@@ -40,11 +40,59 @@ function updatePhase() {
         var reactionTime = performance.now() - startTime - 60; // Corrected reaction time calculation
         reactionScreen.style.backgroundColor = '#59B4C3'; // Change to another color, e.g., blue for reset
         reactionText.textContent = reactionTime.toFixed(2) + " ms"; // Display reaction time rounded to two decimals
+        saveReactionTime(reactionTime);
         phase = 0; // Set phase for reset
     } else if (phase === 3) {
         // This phase seems unused but could be for a manual reset or additional feature
     }
 }
+
+
+
+function saveReactionTime(reactionTime) {
+    fetch('http://localhost:3000/saveReactionTime', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ reactionTime }),
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch((error) => console.error('Error:', error));
+  }
+  
+
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', function() {
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Sending an empty body as this is just a logout request
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            throw new Error('Logout failed.');
+        })
+        .then(message => {
+            alert(message); // Or handle the logout success in another way
+            window.location.href = '/login.html'; // Redirect to login page or home page as needed
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Logout failed, please try again.');
+        });
+    });
+});
+
 
 reactionScreen.addEventListener('click', updatePhase);
 

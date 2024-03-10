@@ -12,7 +12,7 @@ h1 {
 
 .square {
     z-index: 1;
-    background: #f0f0f0;
+    background: #FF474A;
     width: 70%;
     height: 50vh;
     display: flex;
