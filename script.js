@@ -64,7 +64,7 @@ function saveReactionTime(reactionTime) {
   }
   
 
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     const logoutButton = document.getElementById('logoutButton');
 
     logoutButton.addEventListener('click', function() {
@@ -95,9 +95,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 reactionScreen.addEventListener('click', updatePhase);
-
-
-
-//201 202 196 288 199  = 1086= 217
-
-//327 242  242 219 241 = 1271 =254

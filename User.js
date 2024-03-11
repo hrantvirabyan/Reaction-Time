@@ -5,7 +5,10 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  reactionTimes: [Number]
+  reactionTimes: [{
+    time: Number, // The actual reaction time
+    recordedAt: Date // The timestamp when this reaction time was recorded
+  }]
 });
 
 // Pre-save hook to hash password before saving a new user

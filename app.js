@@ -116,9 +116,15 @@ app.post('/saveReactionTime', async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    // Add the new reaction time to the user's reactionTimes array
+    // Create a new object for the reaction time including the timestamp
+    const reactionTimeEntry = {
+      time: reactionTime,
+      recordedAt: new Date() // Current date and time
+    };
+
+    // Add the new reaction time object to the user's reactionTimes array
     // This example assumes you want to limit the array to the last 50 reaction times
-    user.reactionTimes = [...user.reactionTimes, reactionTime].slice(-50);
+    user.reactionTimes = [...user.reactionTimes, reactionTimeEntry].slice(-50);
     
     // Save the updated user document to the database
     await user.save();
@@ -127,9 +133,9 @@ app.post('/saveReactionTime', async (req, res) => {
     req.session.user = user.toObject(); // Ensure the session contains the updated user data
     req.session.save((err) => { // Save the session
       if (err) {
-        throw err; // Handle errors, maybe differently in your actual code
+        throw err;
       }
-      res.send('Reaction time saved and session updated');
+      res.send('Reaction time and timestamp saved and session updated');
     });
   } catch (error) {
     res.status(500).send(error.message);
@@ -137,6 +143,26 @@ app.post('/saveReactionTime', async (req, res) => {
 });
 
 
+
+app.get('/getReactionTimes', async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  try {
+    // Find the user in the database using the ID stored in the session
+    const user = await User.findById(req.session.user._id);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // Send back the user's reaction times
+    res.json(user.reactionTimes);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

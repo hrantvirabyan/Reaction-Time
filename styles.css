@@ -1,11 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-@font-face {
-    font-family: myFont;
-    src: url(Oswald-VariableFont_wght.ttf);
-}
+
 h1 {
-    font-family: myFont;
+    font-family: 'Roboto', sans-serif;
     user-select: none;
     text-align: center;
   }
@@ -22,7 +19,7 @@ h1 {
 .square {
     z-index: 1;
     background: #FF474A;
-    width: 70%;
+    width: 90%;
     height: 50vh;
     display: flex;
     justify-content: center;
@@ -97,11 +94,12 @@ body {
     margin: 0;
     padding-top: 0; /* Adjust this value based on the height of your navbar */
   color: #000000;
-  background-color: #f0f0f0;
+  background-color: #222831;
 }
 
 
-
+#logoutButton {
+}
 
 
 
@@ -118,7 +116,7 @@ ul {
 }
 
 body{
-    background:#fff;
+    background:#222831;
 }
 
 .form-modal{
@@ -159,7 +157,7 @@ body{
 }
 
 .form-modal .login , .form-modal .signup{
-    background:#57b846;
+    background:#00ADB5;
     color:#fff;
 }
 
@@ -195,7 +193,7 @@ body{
 }
 
 #login-toggle{
-    background:#57b846;
+    background:#00ADB5;
     color:#ffff;
 }
 
@@ -255,7 +253,7 @@ body{
 }
 
 .form-modal p a{
-    color:#57b846;
+    color:#00ADB5;
     text-decoration: none;
     transition:0.2s;
 }
@@ -298,4 +296,94 @@ body{
     i{
         display: none!important;
     }
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+h2 {
+    
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: #080808;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+  }
+  
+  h2 span {
+    display: block;
+    font-size: 0.5em;
+    line-height: 1.3;
+  }
+  h2 em {
+    font-style: normal;
+    font-weight: 600;
+  }
+  
+  /* === HEADING STYLE #1 === */
+  .one h2 {
+    text-align: center;
+    padding-bottom: 5px;
+    color: #ebebeb;
+  }
+  .one h2:before {
+    width: 28px;
+    height: 5px;
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    margin-left: -14px;
+    background-color: #00ADB5;
+  }
+  .one h2:after {
+    width: 300px;
+    height: 1px;
+    display: block;
+    content: "";
+    position: relative;
+    margin-top: 5px;
+    left: 50%;
+    margin-left: -150px;
+    background-color: #00ADB5;
+  }
+  
+
+  #reactionTimesTable {
+    font-family: 'Roboto', sans-serif; /* Sets Roboto font for the whole table */
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 60%;
+}
+
+#reactionTimesTable th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    font-size: 20px; /* Increase font size for table headers */
+}
+
+#reactionTimesTable td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+#reactionTimesTable tr:nth-child(even) {
+    background-color: #85f9ff;
+}
+
+#reactionTimesTable tr:nth-child(odd) {
+    background-color: #838383;
 }
