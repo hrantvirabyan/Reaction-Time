@@ -52,7 +52,6 @@ app.post('/signup', async (req, res) => {
     const user = new User({ email, username, password });
     await user.save();
     res.status(201).send('User created successfully. Please log in.');
-    res.status(201).send('User created successfully. Please log in.');
   } catch (error) {
     res.status(400).send(error.message);
   }
