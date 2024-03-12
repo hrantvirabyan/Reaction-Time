@@ -6,6 +6,7 @@ mongoose.set('strictQuery', false);
 const cors = require('cors');
 
 mongoose.connect('mongodb+srv://hrant:ECDuyH1dYGxkrVK0@testserver.rxdp7dj.mongodb.net/?retryWrites=true&w=majority&appName=testserver')
+mongoose.connect('mongodb+srv://hrant:ECDuyH1dYGxkrVK0@testserver.rxdp7dj.mongodb.net/?retryWrites=true&w=majority&appName=testserver')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -21,11 +22,35 @@ const bcrypt = require('bcrypt');
 const session =require("express-session")
 const cookieParser = require("cookie-parser")
 const store = new session.MemoryStore();
+const session =require("express-session")
+const cookieParser = require("cookie-parser")
+const store = new session.MemoryStore();
 
 const app = express();
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: false, // Creates a session for every visitor, regardless of changes
+  store, // Ensure you have defined 'store' for session persistence
+  cookie: {
+    domain: 'localhost', // Specifies where the cookie is valid
+    path: '/', // Specifies the path where the cookie is valid
+    httpOnly: false, // For development, but consider true for production to prevent XSS attacks
+    secure: false, // For HTTPS, set this to true in production
+    sameSite: 'lax', // Lax is suitable for development and most production cases
+    maxAge: 1000 * 60 * 60 * 24 * 365 // Cookie expiry set to one year
+  }
+}));
+
+
+app.use(express.static(__dirname));
+
 app.use(cookieParser());
 app.use(session({
   secret: 'secret',
@@ -52,6 +77,7 @@ app.post('/signup', async (req, res) => {
     const user = new User({ email, username, password });
     await user.save();
     res.status(201).send('User created successfully. Please log in.');
+    res.status(201).send('User created successfully. Please log in.');
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -64,6 +90,20 @@ app.post('/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).send('Email or password is incorrect');
     }
+    
+    // Set user info in session
+    req.session.user = user;
+
+    // Explicitly save the session before sending the response
+    req.session.save(err => {
+      if (err) {
+        // Handle error, could log it and return a 500 error to the client
+        console.error("Session save error:", err);
+        return res.status(500).send("An error occurred");
+      }
+      // Only send the response after the session has been saved successfully
+      res.status(200).send('Login successful');
+    });
     
     // Set user info in session
     req.session.user = user;

@@ -41,6 +41,7 @@ function updatePhase() {
         reactionScreen.style.backgroundColor = '#59B4C3'; // Change to another color, e.g., blue for reset
         reactionText.textContent = reactionTime.toFixed(2) + " ms"; // Display reaction time rounded to two decimals
         saveReactionTime(reactionTime);
+        saveReactionTime(reactionTime);
         phase = 0; // Set phase for reset
     } else if (phase === 3) {
         // This phase seems unused but could be for a manual reset or additional feature

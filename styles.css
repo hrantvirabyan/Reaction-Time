@@ -16,6 +16,16 @@ h1 {
         transform: translateY(0); /* Ends at its final position */
     }
 }
+  @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Starts 20px down from its final position */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Ends at its final position */
+    }
+}
 .square {
     z-index: 1;
     background: #FF474A;
@@ -45,6 +55,10 @@ h1 {
     margin: 0;
     align-self: flex-start;
     user-select: none;
+}
+#reactionText {
+    animation: fadeInUp ease-in 0.5s;
+    animation-fill-mode: forwards;
 }
 #reactionText {
     animation: fadeInUp ease-in 0.5s;
