@@ -32,7 +32,7 @@ document.querySelector('.login').addEventListener('click', function(e) {
     .then(response => {
         if (response.ok) {
             // If login is successful, redirect to index.html
-            alert('Logged in.');
+            //alert('Logged in.');
            window.location.href = 'index.html';
         } else {
             // If login is not successful, you can alert the user
@@ -54,29 +54,27 @@ document.querySelector('.signup').addEventListener('click', function(e) {
     const password = document.querySelector('#signup-form input[type=password]').value;
 
     fetch('http://localhost:3000/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, username, password }),
-    })
-    .then(response => {
-        if (response.ok) {
-            // If signup is successful, redirect to index.html
-            window.location.href = 'index.html';
-        } else {
-            // If signup is not successful, convert response to text and then display it
-            return response.text().then(text => Promise.reject(text));
-        }
-    })
-    .then(data => {
-        // This block is now optional and can be removed, as successful signup redirects the user
-        // If needed, handle any additional success logic here before redirection
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('An error occurred during signup. Please try again later.');
-    });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ email, username, password }),
+})
+.then(response => {
+    if (response.ok) {
+        // If signup is successful, redirect to index.html
+        window.location.href = 'index.html';
+    } else {
+        // If signup is not successful, handle non-JSON text response
+        return response.text().then(text => Promise.reject(text));
+    }
+})
+.catch((error) => {
+    console.error('Error:', error);
+    // Directly alert the error assuming it's plain text
+    alert(error);
+});
+
 });
 

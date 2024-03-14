@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const cors = require('cors');
 
-mongoose.connect('mongodb+srv://hrant:ECDuyH1dYGxkrVK0@testserver.rxdp7dj.mongodb.net/?retryWrites=true&w=majority&appName=testserver')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -21,6 +21,7 @@ const bcrypt = require('bcrypt');
 const session =require("express-session")
 const cookieParser = require("cookie-parser")
 const store = new session.MemoryStore();
+const validator = require('validator');
 
 const app = express();
 app.use(cors(corsOptions));
@@ -28,7 +29,7 @@ app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
-  secret: 'secret',
+  secret: "secret",
   resave: true,
   saveUninitialized: false, // Creates a session for every visitor, regardless of changes
   store, // Ensure you have defined 'store' for session persistence
@@ -47,12 +48,30 @@ app.use(express.static(__dirname));
 
 
 app.post('/signup', async (req, res) => {
+
   try {
     const { email, username, password } = req.body;
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).send('Invalid email format.');
+    }
+
+    // Proceed with user creation if email is valid
     const user = new User({ email, username, password });
     await user.save();
     res.status(201).send('User created successfully. Please log in.');
   } catch (error) {
+    // Check for duplicate email error
+    if (error.code === 11000) {
+      if (error.keyPattern && error.keyPattern.email) {
+        return res.status(409).json({ message: 'This email is already in use. Please use a different email.' });
+      } 
+      if (error.keyPattern && error.keyPattern.username) {
+        return res.status(409).json({ message: 'This username is already in use. Please choose a different username.' });
+      }
+    }
+    // For other errors
     res.status(400).send(error.message);
   }
 });
