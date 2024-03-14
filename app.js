@@ -14,8 +14,8 @@ mongoose.connect(process.env.MONGO_URI)
     credentials: true, // To allow cookies and sessions
   };
 
+  const express = require('express');
 
-const express = require('express');
 const User = require('./User'); // Adjust the path as necessary
 const bcrypt = require('bcrypt');
 const session =require("express-session")
